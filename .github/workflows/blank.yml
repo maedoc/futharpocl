@@ -26,6 +26,6 @@ jobs:
         
     - name: get & build PoCL
       run: |
-        git clone https://github.com/pocl
+        git clone https://github.com/pocl/pocl
         cd pocl/tools/docker/Ubuntu
         docker build -t pocl -f 18_04.64bit .
