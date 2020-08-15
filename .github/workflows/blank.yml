@@ -21,7 +21,7 @@ jobs:
         git clone https://github.com/diku-dk/futhark
         cd futhark
         stack setup
-        stack build
+        stack build --fast
         stack install
         
     - name: get & build PoCL
