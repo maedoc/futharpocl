@@ -15,18 +15,32 @@ jobs:
       run: |
         sudo apt install -y build-essential ocl-icd-libopencl1 cmake git pkg-config libclang-dev clang llvm make ninja-build ocl-icd-libopencl1 ocl-icd-dev ocl-icd-opencl-dev libhwloc-dev zlib1g zlib1g-dev clinfo dialog apt-utils libtinfo-dev libgmp-dev
         # curl -sSL https://get.haskellstack.org/ | sh
-    
-    - name: get & build Furthark
+        
+    - name: cache futhark build
+      id: cache-futhark
+      uses: actions/cache@v2
+      with:
+        path: /home/runner/.local/bin/futhark
+        key: ${{ runner.os }}-futhark
+
+    - name: get & build Futhark
+      if: steps.cache-futhark.outputs.cache-hit != 'true'
       run: |
         git clone https://github.com/diku-dk/futhark
         cd futhark
         stack setup
         stack build --fast
         stack install
-        
-    - name: get & build PoCL
+    
+    - name: check Futhark is working
       run: |
-        git clone https://github.com/pocl/pocl.git
-        mkdir pocl-build && cd pocl-build
-        cmake ../pocl
-        make -j4 install
+        export PATH=/home/runner/.local/bin
+        which futhark
+        futhark --help
+
+#     - name: get & build PoCL
+#       run: |
+#         git clone https://github.com/pocl/pocl.git
+#         mkdir pocl-build && cd pocl-build
+#         cmake ../pocl
+#         make -j4 install
