@@ -33,10 +33,7 @@ jobs:
         stack install
     
     - name: check Futhark is working
-      run: |
-        export PATH=/home/runner/.local/bin
-        bash -c "which futhark"
-        futhark --help
+      run: /home/runner/.local/bin/furthark --help
 
 #     - name: get & build PoCL
 #       run: |
