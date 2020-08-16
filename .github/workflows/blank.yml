@@ -35,7 +35,7 @@ jobs:
     - name: check Futhark is working
       run: |
         export PATH=/home/runner/.local/bin
-        which futhark
+        bash -c "which futhark"
         futhark --help
 
 #     - name: get & build PoCL
